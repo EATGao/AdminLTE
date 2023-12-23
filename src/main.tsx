@@ -4,6 +4,8 @@ import ReactDOM from 'react-dom/client'
 import "reset-css"
 // UI framework style
 
+// Global style
+import "@/assets/styles/global.scss"
 // Component style
 import App from './App.tsx'
 
