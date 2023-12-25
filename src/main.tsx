@@ -7,10 +7,14 @@ import "reset-css"
 // Global style
 import "@/assets/styles/global.scss"
 // Component style
-import App from './App.tsx'
+
+import App from './App'
+import { BrowserRouter } from 'react-router-dom'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <App />
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
   </React.StrictMode>
 )
