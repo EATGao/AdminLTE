@@ -4,6 +4,12 @@ import React, { lazy } from "react"
 
 const About = lazy(()=>import("@/views/About"))
 
+const withLoadingComponent = (comp: JSX.Element) => (
+	<React.Suspense fallback={<div>Loading</div>}>
+		{comp}
+	</React.Suspense>
+)
+
 const routes = [
   {
     path: "/",
@@ -15,9 +21,7 @@ const routes = [
 	},
 	{
     path: "/about",
-    element: <React.Suspense fallback={<div>Loading</div>}>
-			<About />
-		</React.Suspense>
+    element: withLoadingComponent(<About/>)
 	},
 ]
 
