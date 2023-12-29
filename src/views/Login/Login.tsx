@@ -22,7 +22,14 @@ const Login = () => {
 						<Space direction='vertical' size='large' style={{ display: 'flex' }}>
 							<Input placeholder="User Name" />
 							<Input.Password placeholder='Password' />
-							<Button type='primary' block>
+							<div className="captchaBox">
+								<Input placeholder='Verification Code' />
+								<div className='captchaImg'>
+									{/* add verification code later*/}
+									<img height="38"  src="" alt="" />
+								</div>
+							</div>
+							<Button className='loginButton' type='primary' block>
 								Login
 							</Button>
 						</Space>
