@@ -1,20 +1,16 @@
-import handleNum from "./index.ts"
+import handler from "./index.ts"
 
 // create repository
-let reducer = (state = {...handleNum.state}, action:{type: string, value: number}) => {
-	// console.log("Execute")
+let reducer = (state = {...handler.state}, action:{type: string}) => {
+
 	let newState = JSON.parse(JSON.stringify(state))
 
-	switch (action.type) {
-		case handleNum.plusOne:
-			handleNum.actions.plusOne(newState, action)
-			break;
-		case handleNum.plusTwo:
-			handleNum.actions.plusTwo(newState, action)
-			break;
-		default:
-			break;
-	}
+    for (let key in handler.actionNames) {
+        if (action.type === handler.actionNames[key]) {
+            handler.actions[handler.actionNames[key]](newState, action)
+            break
+        }
+    }
 
 	return newState
 }

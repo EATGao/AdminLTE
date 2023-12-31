@@ -1,4 +1,4 @@
-export default {
+const numStore = {
 	state: {
 		num: 20
 	},
@@ -9,7 +9,16 @@ export default {
 		plusTwo(newState: {num: number}, action: {type: string, value: number}){
 			newState.num += action.value
 		},
-	},
-	plusOne: "plusOne",
-	plusTwo: "plusTwo"
+	} as {[key: string]: Function},
+	actionNames: {} as { [key: string]: string }
 }
+
+let actionNames: { [key: string]: string } = {}
+
+for (let key in numStore.actions) {
+	actionNames[key] = key
+}
+
+numStore.actionNames = actionNames;
+
+export default numStore
