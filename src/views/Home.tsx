@@ -20,9 +20,10 @@ const App: React.FC = () => {
       </Sider>
       <Layout>
         <Header style={{ marginLeft: "16px", marginRight: "16px", paddingLeft: 16, background: colorBgContainer }} >
-          <Breadcrumb style={{ lineHeight: '64px' }}>
-            <Breadcrumb.Item>User</Breadcrumb.Item>
-            <Breadcrumb.Item>Bill</Breadcrumb.Item>
+          <Breadcrumb style={{ lineHeight: '64px' }} items={[
+            {title: "User"}, 
+            {title: "Bill"}
+          ]}>
           </Breadcrumb>
         </Header>
 
