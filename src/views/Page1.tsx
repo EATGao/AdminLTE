@@ -3,10 +3,8 @@ import handleNum from "@/store/NumStatus/index.ts"
 
 const Page1 = () => {
 	// handle number
-	const {num} = useSelector((state: RootState) => ({
-		num: state.handleNum.num
-	}))
-	const {arr} = useSelector((state: RootState) => ({
+	const {num, arr} = useSelector((state: RootState) => ({
+		num: state.handleNum.num,
 		arr: state.handleArr.arr
 	}))
 
@@ -17,7 +15,6 @@ const Page1 = () => {
 	}
 
 	const asyncPlusTwo = () => {
-		console.log("c")
 		dispatch(handleNum.asynActions.asyncPlusTwo)
 	}
 
