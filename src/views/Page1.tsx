@@ -1,4 +1,5 @@
 import { useSelector, useDispatch } from "react-redux"
+import handleNum from "@/store/NumStatus/index.ts"
 
 const Page1 = () => {
 	// handle number
@@ -15,8 +16,9 @@ const Page1 = () => {
 		dispatch({type: "plusOne",})
 	}
 
-	const plusTwo = () => {
-		dispatch({type: "plusTwo", value:2})
+	const asyncPlusTwo = () => {
+		console.log("c")
+		dispatch(handleNum.asynActions.asyncPlusTwo)
 	}
 
 	const arrPush = () => {
@@ -28,7 +30,7 @@ const Page1 = () => {
 		<div>
 			<p>{num}</p>
 			<button onClick={plusOne}>Plus one</button>
-			<button onClick={plusTwo}>Plus two</button>
+			<button onClick={asyncPlusTwo}>Async Plus two</button>
 			<p>{arr}</p>
 			<button onClick={arrPush}>Plus two</button>
 		</div>

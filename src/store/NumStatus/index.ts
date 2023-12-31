@@ -4,11 +4,18 @@ const numStore = {
 	},
 	actions: {
 		plusOne(newState: {num: number}, action: {type: string}){
-			newState.num++
+				newState.num++
 		},
 		plusTwo(newState: {num: number}, action: {type: string, value: number}){
 			newState.num += action.value
 		},
+	} as {[key: string]: Function},
+	asynActions:{
+		asyncPlusTwo(dispatch:Function){
+			setTimeout(() => {
+				dispatch({type:"plusTwo", value:2})
+			}, 1000)
+		}
 	} as {[key: string]: Function},
 	actionNames: {} as { [key: string]: string }
 }
