@@ -3,16 +3,19 @@ import initLoginBackground from './init.ts'
 import { ChangeEvent, useEffect, useState } from 'react'
 import { Button, Input, Space } from 'antd'
 import './login.less'
+import { CaptchaAPI } from '@/request/api.ts'
 
 const Login = () => {
 	useEffect(() => {
 		initLoginBackground();
 		window.onresize = function(){initLoginBackground()}
+		getCaptchaImg()
 	}, [])
 
 	const [userName, setUserName] = useState("");
 	const [password, setPassword] = useState("");
 	const [captcha, setCaptcha] = useState("");
+	const [captchaImg, setCaptchaImg] = useState("");
 
 	const userNameChange = (e: ChangeEvent<HTMLInputElement>) => {
 		setUserName(e.target.value)
@@ -30,6 +33,14 @@ const Login = () => {
 		console.log(userName + ' ' + password + ' ' + captcha)
 	}
 
+	const getCaptchaImg = async () => {
+		let captchaAPIRes = await CaptchaAPI()
+		if (captchaAPIRes.code === 200) {
+			setCaptchaImg("data:image/gif;base64," + captchaAPIRes.img)
+		}
+		localStorage.setItem("uuid", captchaAPIRes.uuid)
+	}
+
 	return (
 		<div className={styles.loginPage}>
 			<canvas id="canvas" style={{display: "block"}}></canvas>
@@ -44,9 +55,9 @@ const Login = () => {
 							<Input.Password placeholder='Password' onChange={passwordChange}/>
 							<div className="captchaBox">
 								<Input placeholder='Verification Code' onChange={captchaChange} />
-								<div className='captchaImg'>
+								<div className='captchaImg' onClick={getCaptchaImg}>
 									{/* add verification code later*/}
-									<img height="38"  src="" alt="" />
+									<img height="38"  src={captchaImg} alt="captcha image" />
 								</div>
 							</div>
 							<Button className='loginButton' type='primary' block onClick={login}>
