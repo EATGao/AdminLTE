@@ -1,11 +1,13 @@
 import styles from './login.module.scss'
 import initLoginBackground from './init.ts'
-import { ChangeEvent, useEffect, useState } from 'react'
-import { Button, Input, Space } from 'antd'
+import { ChangeEvent, useEffect, useState} from 'react'
+import { useNavigate } from 'react-router-dom'
+import { Button, Input, Space, message } from 'antd'
 import './login.less'
-import { CaptchaAPI } from '@/request/api.ts'
+import { CaptchaAPI, LoginAPI } from '@/request/api.ts'
 
 const Login = () => {
+	let navigateTo = useNavigate()
 	useEffect(() => {
 		initLoginBackground();
 		window.onresize = function(){initLoginBackground()}
@@ -29,8 +31,25 @@ const Login = () => {
 		setCaptcha(e.target.value)
 	}
 
-	const login = () => {
-		console.log(userName + ' ' + password + ' ' + captcha)
+	const login = async () => {
+		if (!userName.trim() || !password.trim() || !captcha.trim()) {
+			message.warning("Please fill out all columns")
+			return
+		}
+
+		let loginAPIRes = await LoginAPI({
+			username: userName,
+			password: password,
+			code: captcha,
+			uuid: localStorage.getItem("uuid") as string
+		})
+
+		if (loginAPIRes.code === 200) {
+			message.success("Login successfully!")
+			localStorage.setItem("adminlte-token", loginAPIRes.token)
+			localStorage.removeItem("uuid")
+			navigateTo("/page1")
+		}
 	}
 
 	const getCaptchaImg = async () => {
